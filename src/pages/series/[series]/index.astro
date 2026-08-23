@@ -1,0 +1,58 @@
+---
+import type { CollectionEntry } from 'astro:content'
+
+import { PostPreview } from 'astro-pure/components/pages'
+import { getBlogCollection } from 'astro-pure/server'
+import { Button } from 'astro-pure/user'
+import PageLayout from '@/layouts/BaseLayout.astro'
+import { getSeriesGroups } from '@/utils/taxonomy'
+
+export const prerender = true
+
+export async function getStaticPaths() {
+  const groups = getSeriesGroups(await getBlogCollection())
+
+  return groups.map(([series, posts]) => ({
+    params: { series },
+    props: { posts }
+  }))
+}
+
+interface Props {
+  posts: CollectionEntry<'blog'>[]
+}
+
+const { posts } = Astro.props
+const { series } = Astro.params
+const meta = {
+  title: `系列：${series}`,
+  description: `按照建议顺序阅读“${series}”系列。`
+}
+---
+
+<PageLayout {meta}>
+  <Button title='返回系列' href='/series' variant='back' />
+  <main class='mt-6 lg:mt-10'>
+    <div id='content-header' class='animate'>
+      <h1 class='mb-3 text-3xl font-medium'>{series}</h1>
+      <p class='text-muted-foreground'>共 {posts.length} 篇，以下顺序由 seriesOrder 决定。</p>
+    </div>
+
+    <section id='content' class='animate mt-8' aria-label={`${series}系列文章列表`}>
+      <ol class='flex flex-col gap-y-4 text-start'>
+        {
+          posts.map((post, index) => (
+            <li class='grid grid-cols-[2rem_1fr] items-start gap-3'>
+              <span class='mt-4 text-center font-mono text-sm text-muted-foreground'>
+                {index + 1}
+              </span>
+              <ul>
+                <PostPreview {post} detailed />
+              </ul>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+  </main>
+</PageLayout>

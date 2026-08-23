@@ -1,0 +1,68 @@
+---
+import type { GetStaticPaths, Page } from 'astro'
+import type { CollectionEntry } from 'astro:content'
+
+import { Paginator, PostPreview } from 'astro-pure/components/pages'
+import { getBlogCollection, sortMDByDate } from 'astro-pure/server'
+import { Button } from 'astro-pure/user'
+import PageLayout from '@/layouts/BaseLayout.astro'
+import { CATEGORIES } from '@/utils/taxonomy'
+import config from '@/site-config'
+
+export const prerender = true
+
+export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
+  const posts = sortMDByDate(await getBlogCollection())
+
+  return CATEGORIES.flatMap((category) =>
+    paginate(
+      posts.filter((post) => post.data.category === category),
+      {
+        pageSize: config.content.blogPageSize,
+        params: { category }
+      }
+    )
+  )
+}
+
+interface Props {
+  page: Page<CollectionEntry<'blog'>>
+}
+
+const { page } = Astro.props
+const { category } = Astro.params
+const meta = {
+  title: `分类：${category}`,
+  description: `浏览“${category}”分类下的全部文章。`
+}
+
+const paginationProps = {
+  ...(page.url.prev && { prevUrl: { text: '← 上一页', url: page.url.prev } }),
+  ...(page.url.next && { nextUrl: { text: '下一页 →', url: page.url.next } })
+}
+---
+
+<PageLayout {meta}>
+  <Button title='返回分类' href='/categories' variant='back' />
+  <main class='mt-6 lg:mt-10'>
+    <div id='content-header' class='animate'>
+      <h1 class='mb-3 text-3xl font-medium'>{category}</h1>
+      <p class='text-muted-foreground'>共 {page.total} 篇文章</p>
+    </div>
+
+    <section id='content' class='animate mt-8' aria-label={`${category}文章列表`}>
+      {
+        page.data.length > 0 ? (
+          <ul class='flex flex-col gap-y-4 text-start'>
+            {page.data.map((post) => (
+              <PostPreview {post} detailed />
+            ))}
+          </ul>
+        ) : (
+          <p>这个分类还没有文章。</p>
+        )
+      }
+      <Paginator {...paginationProps} />
+    </section>
+  </main>
+</PageLayout>

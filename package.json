@@ -1,28 +1,59 @@
 {
-  "name": "hexo-site",
-  "version": "0.0.0",
+  "name": "zhihao-mao-blog",
+  "type": "module",
+  "version": "4.1.3",
   "private": true,
-  "packageManager": "pnpm@11.7.0",
-  "scripts": {
-    "build": "hexo generate",
-    "clean": "hexo clean",
-    "deploy": "hexo deploy",
-    "server": "hexo server"
+  "packageManager": "pnpm@10.34.5",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
   },
-  "hexo": {
-    "version": "8.1.2"
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro-pure check && astro check && astro build",
+    "preview": "astro preview",
+    "sync": "astro sync",
+    "check": "astro-pure check && astro check",
+    "format": "prettier --write '**/*.{js,jsx,ts,tsx,md,mdx,astro,json,yml,yaml}'",
+    "format:check": "prettier --check '**/*.{js,jsx,ts,tsx,md,mdx,astro,json,yml,yaml}'",
+    "lint": "eslint 'src/**/*.{js,ts,jsx,tsx,astro}'"
   },
   "dependencies": {
-    "hexo": "^8.0.0",
-    "hexo-generator-archive": "^2.0.0",
-    "hexo-generator-category": "^2.0.0",
-    "hexo-generator-index": "^4.0.0",
-    "hexo-generator-tag": "^2.0.0",
-    "hexo-renderer-ejs": "^2.0.0",
-    "hexo-renderer-marked": "^7.0.0",
-    "hexo-renderer-pug": "^3.0.0",
-    "hexo-renderer-stylus": "^3.0.1",
-    "hexo-server": "^3.0.0",
-    "hexo-theme-solitude": "^3.0.21"
+    "@astrojs/check": "0.9.6",
+    "@astrojs/markdown-remark": "6.3.10",
+    "@astrojs/rss": "4.0.15",
+    "@shikijs/core": "3.21.0",
+    "@shikijs/types": "3.21.0",
+    "@unocss/astro": "66.5.10",
+    "@unocss/preset-mini": "66.5.10",
+    "@unocss/preset-typography": "66.5.10",
+    "@unocss/reset": "66.5.10",
+    "astro": "5.17.3",
+    "astro-pure": "1.4.0",
+    "hastscript": "9.0.1",
+    "katex": "^0.16.33",
+    "rehype-katex": "^7.0.1",
+    "rehype-stringify": "^10.0.1",
+    "remark-math": "^6.0.0",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.2",
+    "sharp": "^0.34.5",
+    "shiki": "3.21.0",
+    "typescript": "^5.9.3",
+    "unocss": "66.5.10",
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.0.0"
+  },
+  "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
+    "@types/hast": "^3.0.4",
+    "@types/mdast": "^4.0.4",
+    "@typescript-eslint/parser": "^8.56.1",
+    "eslint": "^9.39.3",
+    "eslint-plugin-astro": "^1.6.0",
+    "prettier": "^3.8.1",
+    "prettier-plugin-astro": "^0.14.1"
   }
 }

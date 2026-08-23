@@ -1,0 +1,28 @@
+---
+import PageLayout from '@/layouts/CommonPage.astro'
+
+const headings = [
+  { depth: 2, slug: 'about-me', text: '关于我' },
+  { depth: 2, slug: 'about-blog', text: '关于这个博客' },
+  { depth: 2, slug: 'contact', text: '找到我' }
+]
+---
+
+<PageLayout title='关于' {headings}>
+  <h2 id='about-me'>关于我</h2>
+  <p>
+    我是北京大学计算机学院博士生，研究兴趣包括系统优化、具身智能、世界模型、物理 AI 与
+    WAM。我的工作关注一个核心问题：怎样让智能系统不仅“能运行”，而且在真实约束下运行得更快、更稳、更可解释。
+  </p>
+
+  <h2 id='about-blog'>关于这个博客</h2>
+  <p>
+    这里同时容纳两类内容。技术文章用于沉淀论文阅读、实验复盘、系统设计与工程实践；读博日记用于保存科研过程中的判断、失败、变化和生活。分类表达内容类型，标签表达具体主题，系列表达文章之间的先后关系。
+  </p>
+
+  <h2 id='contact'>找到我</h2>
+  <ul>
+    <li><a href='https://lusunn111.github.io/'>个人学术主页</a></li>
+    <li><a href='https://github.com/lusunn111'>GitHub</a></li>
+  </ul>
+</PageLayout>

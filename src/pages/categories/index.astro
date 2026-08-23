@@ -1,0 +1,47 @@
+---
+import { getBlogCollection } from 'astro-pure/server'
+import { Button } from 'astro-pure/user'
+import PageLayout from '@/layouts/BaseLayout.astro'
+import { CATEGORIES, categoryHref } from '@/utils/taxonomy'
+
+const posts = await getBlogCollection()
+const meta = {
+  title: '分类',
+  description: '按照技术文章与读博日记浏览内容。'
+}
+---
+
+<PageLayout {meta}>
+  <Button title='返回首页' href='/' variant='back' />
+  <main class='mt-6 lg:mt-10'>
+    <div id='content-header' class='animate'>
+      <h1 class='mb-3 text-3xl font-medium'>分类</h1>
+      <p class='text-muted-foreground'>分类回答“这篇文章是什么类型”，标签回答“它具体讨论什么”。</p>
+    </div>
+
+    <section id='content' class='animate mt-8 grid gap-4 sm:grid-cols-2' aria-label='文章分类'>
+      {
+        CATEGORIES.map((category) => {
+          const count = posts.filter((post) => post.data.category === category).length
+          const description =
+            category === '技术'
+              ? '研究思考、论文解读、实验复盘、系统优化与工程实践。'
+              : '科研日常、阶段反思、会议见闻、成长记录与生活。'
+
+          return (
+            <a
+              class='rounded-2xl border bg-background p-6 transition-colors hover:bg-muted'
+              href={categoryHref(category)}
+            >
+              <div class='flex items-center justify-between gap-4'>
+                <h2 class='text-xl font-medium'>{category}</h2>
+                <span class='text-sm text-muted-foreground'>{count} 篇</span>
+              </div>
+              <p class='mt-3 text-sm text-muted-foreground'>{description}</p>
+            </a>
+          )
+        })
+      }
+    </section>
+  </main>
+</PageLayout>

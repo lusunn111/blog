@@ -1,0 +1,93 @@
+---
+import { Image } from 'astro:assets'
+
+import { PostPreview } from 'astro-pure/components/pages'
+import { getBlogCollection, sortMDByDate } from 'astro-pure/server'
+import { Button, Icon, Label } from 'astro-pure/user'
+import PageLayout from '@/layouts/BaseLayout.astro'
+import Section from '@/components/home/Section.astro'
+import { CATEGORIES, categoryHref } from '@/utils/taxonomy'
+import avatar from '@/assets/avatar.jpg'
+import config from '@/site-config'
+
+const allPosts = sortMDByDate(await getBlogCollection())
+const latestPosts = allPosts.slice(0, 8)
+---
+
+<PageLayout meta={{ title: '首页', description: config.description }} highlightColor='#3f748f'>
+  <main class='flex w-full flex-col items-center'>
+    <section class='animate mb-12 flex flex-col items-center gap-y-6' id='content-header'>
+      <Image
+        src={avatar}
+        alt='Zhihao Mao 的头像'
+        class='h-28 w-28 rounded-full border object-cover p-1'
+        loading='eager'
+        fetchpriority='high'
+      />
+
+      <div class='flex flex-col items-center gap-y-3 text-center'>
+        <h1 class='text-3xl font-medium'>{config.title}</h1>
+        <p class='max-w-2xl text-muted-foreground'>{config.description}</p>
+        <div class='mt-2 flex flex-wrap justify-center gap-x-6 gap-y-3'>
+          <Label title='北京'>
+            <Icon name='location' class='size-5' slot='icon' />
+          </Label>
+          <Label title='个人学术主页' as='a' href='https://lusunn111.github.io/' target='_blank'>
+            <Icon name='earth' class='size-5' slot='icon' />
+          </Label>
+          <Label title='GitHub' as='a' href='https://github.com/lusunn111' target='_blank'>
+            <Icon name='github' class='size-5' slot='icon' />
+          </Label>
+        </div>
+      </div>
+    </section>
+
+    <div id='content' class='animate flex flex-col gap-y-12 md:w-4/5 lg:w-5/6'>
+      <Section title='写在这里'>
+        <p class='text-muted-foreground'>
+          技术文章追问系统为什么慢、模型为什么失效，以及怎样把想法变成可复现的实验；读博日记记录问题之外的人、选择和阶段性反思。
+        </p>
+      </Section>
+
+      <Section title='分类'>
+        <div class='grid grid-cols-1 gap-3 sm:grid-cols-2'>
+          {
+            CATEGORIES.map((category) => {
+              const count = allPosts.filter((post) => post.data.category === category).length
+              const description =
+                category === '技术'
+                  ? '系统优化、具身智能、世界模型、物理 AI、WAM 与工程实践'
+                  : '科研过程、实验复盘、阶段选择、会议见闻与日常思考'
+
+              return (
+                <a
+                  class='rounded-2xl border bg-background p-5 transition-colors hover:bg-muted'
+                  href={categoryHref(category)}
+                >
+                  <div class='flex items-center justify-between gap-4'>
+                    <h2 class='text-lg font-medium'>{category}</h2>
+                    <span class='text-sm text-muted-foreground'>{count} 篇</span>
+                  </div>
+                  <p class='mt-2 text-sm text-muted-foreground'>{description}</p>
+                </a>
+              )
+            })
+          }
+        </div>
+      </Section>
+
+      {
+        latestPosts.length > 0 && (
+          <Section title='最近文章'>
+            <ul class='flex flex-col gap-y-2'>
+              {latestPosts.map((post) => (
+                <PostPreview post={post} />
+              ))}
+            </ul>
+            <Button title='查看全部文章' class='w-fit self-end' href='/blog' variant='ahead' />
+          </Section>
+        )
+      }
+    </div>
+  </main>
+</PageLayout>

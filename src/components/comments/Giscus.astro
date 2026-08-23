@@ -1,0 +1,36 @@
+---
+import { comments } from '@/site-config'
+
+interface Props {
+  enabled?: boolean
+}
+
+const { enabled = false } = Astro.props
+const ready =
+  enabled && comments.enabled && comments.repositoryId.length > 0 && comments.categoryId.length > 0
+---
+
+{
+  ready && (
+    <section class='giscus-container mt-6 rounded-2xl border bg-background p-4' aria-label='评论区'>
+      <script
+        is:inline
+        src='https://giscus.app/client.js'
+        data-repo={comments.repository}
+        data-repo-id={comments.repositoryId}
+        data-category={comments.category}
+        data-category-id={comments.categoryId}
+        data-mapping='pathname'
+        data-strict='0'
+        data-reactions-enabled='1'
+        data-emit-metadata='0'
+        data-input-position='top'
+        data-theme='preferred_color_scheme'
+        data-lang='zh-CN'
+        data-loading='lazy'
+        crossorigin='anonymous'
+        async
+      />
+    </section>
+  )
+}

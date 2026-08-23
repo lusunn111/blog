@@ -1,0 +1,84 @@
+---
+import type { MarkdownHeading } from 'astro'
+import type { CollectionEntry } from 'astro:content'
+
+import 'katex/dist/katex.min.css'
+
+import config from 'virtual:config'
+
+import { MediumZoom } from 'astro-pure/advanced'
+import { ArticleBottom, Hero, TOC } from 'astro-pure/components/pages'
+import PageLayout from '@/layouts/ContentLayout.astro'
+import Giscus from '@/components/comments/Giscus.astro'
+import Copyright from '@/components/pages/Copyright.astro'
+import { categoryHref, seriesHref } from '@/utils/taxonomy'
+
+interface Props {
+  post: CollectionEntry<'blog'>
+  posts: CollectionEntry<'blog'>[]
+  headings: MarkdownHeading[]
+  remarkPluginFrontmatter: Record<string, unknown>
+}
+
+const {
+  post: { id, data },
+  posts,
+  headings,
+  remarkPluginFrontmatter
+} = Astro.props
+
+const {
+  category,
+  comment: enableComment,
+  description,
+  draft: isDraft,
+  heroImage,
+  publishDate,
+  series,
+  title,
+  updatedDate
+} = data
+
+const socialImage = heroImage
+  ? typeof heroImage.src === 'string'
+    ? heroImage.src
+    : heroImage.src.src
+  : config.socialCard
+const articleDate = updatedDate?.toISOString() ?? publishDate.toISOString()
+const primaryColor = data.heroImage?.color ?? 'hsl(var(--primary) / var(--un-text-opacity))'
+---
+
+<PageLayout
+  meta={{ articleDate, description, ogImage: socialImage, title }}
+  highlightColor={primaryColor}
+  back='/blog'
+>
+  {!!headings.length && <TOC {headings} slot='sidebar' />}
+
+  <Hero {data} {remarkPluginFrontmatter} slot='header'>
+    <Fragment slot='description'>
+      <nav class='mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm not-italic' aria-label='文章分类信息'>
+        <a class='hover:underline' href={categoryHref(category)}>分类：{category}</a>
+        {
+          series && (
+            <a class='hover:underline' href={seriesHref(series)}>
+              系列：{series}
+            </a>
+          )
+        }
+      </nav>
+    </Fragment>
+  </Hero>
+
+  <slot />
+
+  <Fragment slot='bottom'>
+    <Copyright {data} />
+    <ArticleBottom collections={posts} {id} class='mt-3 sm:mt-6' />
+    {!isDraft && <Giscus enabled={enableComment} />}
+  </Fragment>
+
+  <slot name='bottom-sidebar' slot='bottom-sidebar' />
+</PageLayout>
+
+{config.integ.mediumZoom.enable && <MediumZoom />}
