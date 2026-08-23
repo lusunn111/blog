@@ -48,7 +48,7 @@ comment: false
 | ------------ | ------------ |
 | 构建命令     | `pnpm build` |
 | 构建输出目录 | `dist`       |
-| Node.js 版本 | `22`         |
+| Node.js 版本 | `24`         |
 | 根目录       | `/`          |
 
 本项目没有 Vercel 适配器，也没有 `/blog` 基础路径。GitHub Actions 只做构建检查，不会发布 GitHub Pages。
