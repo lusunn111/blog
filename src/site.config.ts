@@ -1,10 +1,10 @@
 import type { Config, IntegrationUserConfig, ThemeUserConfig } from 'astro-pure/types'
 
 export const theme: ThemeUserConfig = {
-  title: "Zhihao Mao's Blog",
-  author: 'Zhihao Mao',
+  title: '毛郅皓的博客',
+  author: '毛郅皓',
   description:
-    '记录系统优化、具身智能、世界模型、物理 AI 与 WAM 的技术思考，也记录读博过程中的实验、选择与日常。',
+    '记录面向物理智能的高效系统，关注视觉语言动作模型（VLA）、视觉语言导航（VLN）和世界动作模型（WAM）的推理优化；也记录从本科科研走向博士阶段的实验、选择与日常。',
   favicon: '/images/avatar.jpg',
   socialCard: '/images/avatar.jpg',
   locale: {
@@ -19,7 +19,7 @@ export const theme: ThemeUserConfig = {
   },
   logo: {
     src: '/src/assets/avatar.jpg',
-    alt: 'Zhihao Mao 的头像'
+    alt: '毛郅皓的照片'
   },
   titleDelimiter: '·',
   prerender: true,
@@ -42,6 +42,16 @@ export const theme: ThemeUserConfig = {
       {
         title: '个人学术主页',
         link: 'https://lusunn111.github.io/',
+        style: 'text-sm'
+      },
+      {
+        title: 'Google Scholar',
+        link: 'https://scholar.google.com/citations?user=lQmlVzoAAAAJ&hl=zh-CN',
+        style: 'text-sm'
+      },
+      {
+        title: '邮件',
+        link: 'mailto:htxmzh@gmail.com',
         style: 'text-sm'
       }
     ],

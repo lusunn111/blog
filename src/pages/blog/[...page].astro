@@ -29,7 +29,7 @@ interface Props {
 const { page, uniqueTags, collectionsCount } = Astro.props
 
 const meta = {
-  description: '技术文章、研究笔记与读博日记。',
+  description: '面向物理智能的系统研究、实验记录、工程实践与博士阶段前后的成长日记。',
   title: '文章'
 }
 
@@ -54,7 +54,9 @@ const paginationProps = {
   <main class='mt-6 lg:mt-10'>
     <div id='content-header' class='animate'>
       <h1 class='mb-3 mt-6 text-3xl font-medium sm:mt-10'>文章</h1>
-      <p class='mb-6 text-muted-foreground'>技术文章、研究笔记与读博日记。</p>
+      <p class='mb-6 text-muted-foreground'>
+        研究不是只保留结论：这里也记录假设、实验、失败与修正。
+      </p>
     </div>
     {
       page.data.length === 0 ? (

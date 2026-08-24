@@ -1,6 +1,6 @@
-# Zhihao Mao's Blog
+# 毛郅皓的博客
 
-Zhihao Mao 的个人博客，内容包括系统优化、具身智能、世界模型、物理 AI、WAM、技术文章与读博日记。
+毛郅皓的个人博客，记录面向物理智能的高效系统，重点关注视觉语言动作模型（VLA）、视觉语言导航（VLN）、世界动作模型（WAM）的推理优化，也记录从本科科研走向博士阶段的实验、选择与日常。
 
 项目基于 Astro Theme Pure v4.1.3，采用纯静态输出，目标地址为 <https://lusunn111-blog.pages.dev/>。
 
@@ -59,4 +59,4 @@ Giscus 组件已经准备，但在仓库 Discussions 与 Giscus ID 配置完成�
 
 ## 上游与版权
 
-主题代码基于 [Astro Theme Pure](https://github.com/cworld1/astro-theme-pure)，遵循仓库内 Apache License 2.0。文章内容版权归 Zhihao Mao 所有。
+主题代码基于 [Astro Theme Pure](https://github.com/cworld1/astro-theme-pure)，遵循仓库内 Apache License 2.0。文章内容版权归毛郅皓所有。
