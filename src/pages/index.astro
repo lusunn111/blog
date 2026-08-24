@@ -19,7 +19,7 @@ const latestPosts = allPosts.slice(0, 8)
     <section class='animate mb-12 flex flex-col items-center gap-y-6' id='content-header'>
       <Image
         src={avatar}
-        alt='Zhihao Mao 的头像'
+        alt='毛郅皓的照片'
         class='h-28 w-28 rounded-full border object-cover p-1'
         loading='eager'
         fetchpriority='high'
@@ -28,6 +28,10 @@ const latestPosts = allPosts.slice(0, 8)
       <div class='flex flex-col items-center gap-y-3 text-center'>
         <h1 class='text-3xl font-medium'>{config.title}</h1>
         <p class='max-w-2xl text-muted-foreground'>{config.description}</p>
+        <p class='max-w-2xl text-sm leading-6 text-muted-foreground'>
+          中国地质大学（武汉）本科在读 · 北京大学 IF-Lab 研究实习生 · 2027
+          年秋季入学北京大学计算机学院博士项目
+        </p>
         <div class='mt-2 flex flex-wrap justify-center gap-x-6 gap-y-3'>
           <Label title='北京'>
             <Icon name='location' class='size-5' slot='icon' />
@@ -35,8 +39,19 @@ const latestPosts = allPosts.slice(0, 8)
           <Label title='个人学术主页' as='a' href='https://lusunn111.github.io/' target='_blank'>
             <Icon name='earth' class='size-5' slot='icon' />
           </Label>
+          <Label
+            title='Google Scholar'
+            as='a'
+            href='https://scholar.google.com/citations?user=lQmlVzoAAAAJ&hl=zh-CN'
+            target='_blank'
+          >
+            <Icon name='document' class='size-5' slot='icon' />
+          </Label>
           <Label title='GitHub' as='a' href='https://github.com/lusunn111' target='_blank'>
             <Icon name='github' class='size-5' slot='icon' />
+          </Label>
+          <Label title='邮件' as='a' href='mailto:htxmzh@gmail.com'>
+            <Icon name='email' class='size-5' slot='icon' />
           </Label>
         </div>
       </div>
@@ -45,7 +60,7 @@ const latestPosts = allPosts.slice(0, 8)
     <div id='content' class='animate flex flex-col gap-y-12 md:w-4/5 lg:w-5/6'>
       <Section title='写在这里'>
         <p class='text-muted-foreground'>
-          技术文章追问系统为什么慢、模型为什么失效，以及怎样把想法变成可复现的实验；读博日记记录问题之外的人、选择和阶段性反思。
+          我把这里当作一份可以长期检索的研究日志。技术文章记录论文阅读、系统设计、实验失败与工程实现；“读博日记”从入学前的准备开始，留下选择、见闻以及研究之外的生活。
         </p>
       </Section>
 
@@ -56,8 +71,8 @@ const latestPosts = allPosts.slice(0, 8)
               const count = allPosts.filter((post) => post.data.category === category).length
               const description =
                 category === '技术'
-                  ? '系统优化、具身智能、世界模型、物理 AI、WAM 与工程实践'
-                  : '科研过程、实验复盘、阶段选择、会议见闻与日常思考'
+                  ? '具身智能系统，VLA、VLN 与 WAM 的推理优化和工程实践'
+                  : '入学准备、科研过程、实验复盘、阶段选择与日常生活'
 
               return (
                 <a

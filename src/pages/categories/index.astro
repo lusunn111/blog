@@ -7,7 +7,7 @@ import { CATEGORIES, categoryHref } from '@/utils/taxonomy'
 const posts = await getBlogCollection()
 const meta = {
   title: '分类',
-  description: '按照技术文章与读博日记浏览内容。'
+  description: '按照技术文章与读博日记浏览博客内容。'
 }
 ---
 
@@ -25,8 +25,8 @@ const meta = {
           const count = posts.filter((post) => post.data.category === category).length
           const description =
             category === '技术'
-              ? '研究思考、论文解读、实验复盘、系统优化与工程实践。'
-              : '科研日常、阶段反思、会议见闻、成长记录与生活。'
+              ? '具身智能系统、模型推理优化、论文解读、实验复盘与工程实践。'
+              : '从入学准备开始，记录科研日常、阶段选择、会议见闻与生活。'
 
           return (
             <a
